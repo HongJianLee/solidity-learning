@@ -10,39 +10,58 @@ https://archive.trufflesuite.com/ganache/
 ```
 https://archive.trufflesuite.com/docs/ganache/
 ```
+## 安裝openzeppelin
+```bash
+  npm install @openzeppelin/contracts
+```
+## 安裝openzeppelin升级
+```bash
+    npm install @openzeppelin/contracts-upgradeable @openzeppelin/contracts
+```
+
+# Truffle
+
+[Truffle 文档](https://archive.trufflesuite.com/docs/truffle/)
 
 
-# truffle-demo
+## 安装
+```bash
+  npm install -g truffle
+```
 
-https://archive.trufflesuite.com/docs/truffle/
+## 查看版本号
+```bash
+  truffle version
+```
 
-安装
-npm install -g truffle
-
-查看版本号
-truffle version
-
-初始化
-truffle init
-
-编译
-truffle compile
-
-migrations中的2_deploy_contracts.js前缀必须带数字ß
-
-部署合约到开发环境Ganache
-truffle migrate --network development
-
-测试
-npm install --save-dev truffle chai
-
-npm install -g chai
-
-npm install --save-dev chai mocha
+## 项目初始化
+```bash
+  truffle init
+```
+## 编译合约
+```bash
+  truffle compile
+```
+## 部署合约到开发环境
+### migrations中的1_deploy_contracts.js前缀必须带数字
+```bash
+  truffle migrate --network development
+```
+## 安装测试依赖
+### 依赖文档
 https://juejin.cn/post/6997381389406437412
 https://blog.csdn.net/black_cat7/article/details/145066594
+```bash
+  npm install --save-dev chai mocha
+```
 
-# Hardhat Demo
+## 测试合约
+```bash
+  npm install --save-dev truffle chai
+```
+
+
+# Hardhat
 
 ## 文档
 [Hardhat 文档](https://hardhat.org/docs)
@@ -55,15 +74,6 @@ https://blog.csdn.net/black_cat7/article/details/145066594
 ## 项目初始化
 ```bash
   npx hardhat init
-```
-
-## 安裝openzeppelin
-```bash
-  npm install @openzeppelin/contracts
-```
-## 安裝openzeppelin升级
-```bash
-    npm install @openzeppelin/contracts-upgradeable @openzeppelin/contracts
 ```
 
 ## 编译合约
