@@ -16,7 +16,7 @@ https://archive.trufflesuite.com/docs/ganache/
 ```
 ## 安裝openzeppelin升级
 ```bash
-    npm install @openzeppelin/contracts-upgradeable @openzeppelin/contracts
+  npm install @openzeppelin/contracts-upgradeable @openzeppelin/contracts
 ```
 
 # Truffle
@@ -42,11 +42,24 @@ https://archive.trufflesuite.com/docs/ganache/
 ```bash
   truffle compile
 ```
+
 ## 部署合约到开发环境
+### 配置文件truffle-config.js中network配置
 ### migrations中的1_deploy_contracts.js前缀必须带数字
 ```bash
   truffle migrate --network development
 ```
+
+## 部署合约到主网环境
+### 确保你已经安装了@truffle/hdwallet-provider和dotenv。如果没有安装，可以使用以下命令进行安装
+```bash
+ npm install @truffle/hdwallet-provider dotenv
+```
+
+```bash
+  truffle migrate --network mainnet
+```
+
 ## 安装测试依赖
 ### 依赖文档
 https://juejin.cn/post/6997381389406437412
