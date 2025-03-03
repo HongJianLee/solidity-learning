@@ -106,3 +106,23 @@ https://blog.csdn.net/black_cat7/article/details/145066594
 ```bash
     npm install ethers --save
 ```
+# 代码风格检查
+[solhint](https://www.npmjs.com/package/solhint)
+
+```bash
+  npm install -g solhint
+```
+## 查看版本
+```bash
+  solhint --version
+```
+## 初始化配置文件
+```bash
+    solhint --init
+```
+## 检查合约
+```bash
+    solhint contracts/**/*.sol
+
+```
+
