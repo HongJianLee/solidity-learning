@@ -70,16 +70,51 @@ async function main() {
     const currentNonce = await provider.getTransactionCount(aAccount, "latest");
     console.log(`Current nonce: ${currentNonce}`);
 
-
     const contract = new ethers.Contract(contractAddress, abi, signer);
     console.log(`Contract name: ${await contract.name()}`);
+
     // 发送 mint 交易（指定 nonce）
-    const txMint =await contract.mint(aAccount, ethers.parseEther("1.0"), {
+    const txMint = await contract.mint(aAccount, ethers.parseEther("1.0"), {
         nonce: currentNonce
     });
     console.log(`Mint transaction hash: ${txMint.hash}`);
     await txMint.wait();
     console.log("Mint transaction confirmed");
+
+    // --------- Listening to Events ---------
+    const contract2 = new ethers.Contract(contractAddress, abi, provider);
+    contract2.on("Transfer", (from, to, value, event) => {
+        console.log(`Transfer1 event emitted: from ${from} to ${to} value ${value}`);
+        // Optionally, stop listening
+        event.removeListener();
+    });
+
+    // Same as above
+    let filter = contract.filters.Transfer();
+    contract2.on(filter, (from, to, value, event) => {
+        console.log(`Transfer2 event emitted: from ${from} to ${to} value ${value}`);
+        // Optionally, stop listening
+        event.removeListener();
+    })
+
+    // Listen for any Transfer to "ethers.eth"
+    let filter2 = contract2.filters.Transfer(aAccount)
+    contract2.on(filter2, (from, to, value, event) => {
+        // `to` will always be equal to the address of "bAccount"
+        console.log(`Transfer3 event emitted: from ${from} to ${to} value ${value}`);
+        // Optionally, stop listening
+        event.removeListener();
+    });
+
+    // Listen for any event, whether it is present in the ABI
+    // or not. Since unknown events can be picked up, the
+    // parameters are not destructed.
+    contract2.on("*", (event) => {
+        // The `event.log` has the entire EventLog
+        console.log(`Event emitted: ${event.event}`);
+    });
+
+    // --------- Listening to Events ---------
 
     // transfer
     // 发送 transfer 交易（指定 nonce + 1）
@@ -98,7 +133,6 @@ async function main() {
     const balanceOfB = await contract.balanceOf(bAccount);
     console.log(`B Account balance: ${ethers.formatEther(balanceOfB)}`);
 
-    // --------- 智能合约 ---------
 }
 
 main()
