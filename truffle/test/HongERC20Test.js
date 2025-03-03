@@ -2,8 +2,8 @@ const HongERC20 = artifacts.require("HongERC20");
 
 describe('HongERC20', () => {
     let hongERC20;
-    const owner = "0x281AD57EdC50dD7d63C369FB18721FDA211D3C71";
-    const user = "0x913CA48477A66F9ced3DdF4B931E758cBb11D85B";
+    const owner = "0xA5e458041D2D584123a2B55E2F8283a8b330cDB3";
+    const user = "0x7E918caEA9741df0650B408C26315416CDaeE3A5";
     before(async () => {
         hongERC20 = await HongERC20.new(owner);
     })

@@ -1,5 +1,3 @@
-# truffle-hardhat-demo
-
 ## 本地安装ganache
 ### 下载地址
 ```
@@ -49,6 +47,11 @@ https://archive.trufflesuite.com/docs/ganache/
 ```bash
   truffle migrate --network development
 ```
+### --f 2：指定从第 2 个迁移脚本开始。
+### --to 2：只执行到第 2 个迁移脚本（如果有多个迁移文件，这样可以控制执行的脚本范围）。
+```bash
+  truffle migrate --f 1 --to 1 --network development
+```
 
 ## 部署合约到主网环境
 ### 确保你已经安装了@truffle/hdwallet-provider和dotenv。如果没有安装，可以使用以下命令进行安装
@@ -97,4 +100,9 @@ https://blog.csdn.net/black_cat7/article/details/145066594
 ## 部署合约
 ```bash
   npx hardhat ignition deploy ./ignition/modules/Token.js --network development
+```
+
+# Ethers
+```bash
+    npm install ethers --save
 ```
