@@ -1,6 +1,6 @@
-var HongContract = artifacts.require("HongERC20");
+var contract = artifacts.require("MerkleTree");
 
 module.exports = function(deployer) {
     // deployment steps
-    deployer.deploy(HongContract, "0xA5e458041D2D584123a2B55E2F8283a8b330cDB3");
+    deployer.deploy(contract, "HongJian", "LI", "0xeeefd63003e0e702cb41cd0043015a6e26ddb38073cc6ffeb0ba3e808ba8c097");
 };
