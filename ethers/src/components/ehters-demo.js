@@ -64,6 +64,7 @@ async function main() {
         "event Transfer(address indexed from, address indexed to, uint256 value)",
         "event Approval(address indexed owner, address indexed spender, uint256 value)"
     ];
+
     let signer = new ethers.Wallet(aAccountSecret, provider);
 
     // 获取当前 nonce
@@ -98,21 +99,21 @@ async function main() {
     })
 
     // Listen for any Transfer to "ethers.eth"
-    let filter2 = contract2.filters.Transfer(aAccount)
-    contract2.on(filter2, (from, to, value, event) => {
-        // `to` will always be equal to the address of "bAccount"
-        console.log(`Transfer3 event emitted: from ${from} to ${to} value ${value}`);
-        // Optionally, stop listening
-        event.removeListener();
-    });
+    // let filter2 = contract2.filters.Transfer(bAccount)
+    // contract2.on(filter2, (from, to, value, event) => {
+    //     // `to` will always be equal to the address of "bAccount"
+    //     console.log(`Transfer3 event emitted: from ${from} to ${to} value ${value}`);
+    //     // Optionally, stop listening
+    //     event.removeListener();
+    // });
 
     // Listen for any event, whether it is present in the ABI
     // or not. Since unknown events can be picked up, the
     // parameters are not destructed.
-    contract2.on("*", (event) => {
-        // The `event.log` has the entire EventLog
-        console.log(`Event emitted: ${event.event}`);
-    });
+    // contract2.on("*", (event) => {
+    //     // The `event.log` has the entire EventLog
+    //     console.log(`Event emitted: ${event.event}`);
+    // });
 
     // --------- Listening to Events ---------
 
@@ -133,6 +134,18 @@ async function main() {
     const balanceOfB = await contract.balanceOf(bAccount);
     console.log(`B Account balance: ${ethers.formatEther(balanceOfB)}`);
 
+    // --------- Signing a message ---------
+    // 创建离线 Signer
+    const offlineSigner = new ethers.Wallet(aAccountSecret);
+    const message = "sign into ethers.org?"
+    // Signing the message
+    let sig = await offlineSigner.signMessage(message);
+    console.log(`Signature: ${sig}`);
+    // Validating a message; notice the address matches the signer
+    const signerAddress =  ethers.verifyMessage(message, sig);
+    console.log(`Message signed by: ${signerAddress}`);
+
+    // --------- Signing a message ---------
 }
 
 main()
