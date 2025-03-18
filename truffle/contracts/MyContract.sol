@@ -7,4 +7,8 @@ contract MyContract {
     constructor(string memory _message) {
         message = _message;
     }
+
+    function msg() external view returns (string memory)  {
+        return message;
+    }
 }
