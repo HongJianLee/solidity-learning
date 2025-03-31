@@ -126,3 +126,45 @@ https://blog.csdn.net/black_cat7/article/details/145066594
 
 ```
 
+# Foundry
+[Foundry 文档](https://learnblockchain.cn/docs/foundry/i18n/zh/index.html)
+
+## 安装Foundry
+# 克隆仓库
+```
+git clone https://github.com/foundry-rs/foundry.git
+cd foundry
+```
+## 安装 Forge
+```
+cargo install --path ./crates/forge --profile release --force --locked
+```
+## 安装 Cast
+```
+cargo install --path ./crates/cast --profile release --force --locked
+```
+## 安装 Anvil
+```
+cargo install --path ./crates/anvil --profile release --force --locked
+```
+## 安装 Chisel
+```
+cargo install --path ./crates/chisel --profile release --force --locked
+```
+
+```bash
+mkdir foundry
+```
+```
+cd foundry
+```
+```
+forge init --force --no-git
+```
+```
+forge install OpenZeppelin/openzeppelin-contracts
+```
+## 部署合约
+```bash
+forge create --rpc-url http://localhost:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 src/Counter.sol:Counter --broadcast
+```
