@@ -12,7 +12,12 @@ contract Counter {
         number++;
     }
 
-    function showNum() external view returns (uint256) {
+    function count() external view returns (uint256) {
         return number;
+    }
+
+    function subtract() external returns (uint256){
+        revert("Expection");
+        return number--;
     }
 }

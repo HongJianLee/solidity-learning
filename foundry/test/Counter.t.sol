@@ -5,20 +5,26 @@ import {Test, console} from "forge-std/Test.sol";
 import {Counter} from "../src/Counter.sol";
 
 contract CounterTest is Test {
-    Counter public counter;
+    Counter counter;
 
     function setUp() public {
         counter = new Counter();
-        counter.setNumber(0);
     }
 
-    function test_Increment() public {
+    function test_increment() public {
+        assert(counter.count() == 0);
         counter.increment();
-        assertEq(counter.number(), 1);
+        assert(counter.count() == 1);
     }
 
-    function testFuzz_SetNumber(uint256 x) public {
-        counter.setNumber(x);
-        assertEq(counter.number(), x);
+    function test_setNumber() public {
+        assert(counter.count() == 0);
+        counter.setNumber(10);
+        assert(counter.count() == 10);
+    }
+
+    function test_subtract() public {
+        vm.expectRevert("Expection");
+        counter.subtract();
     }
 }

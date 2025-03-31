@@ -162,9 +162,25 @@ cd foundry
 forge init --force --no-git
 ```
 ```
+forge install transmissions11/solmate
+forge install transmission11/solmate@v7
 forge install OpenZeppelin/openzeppelin-contracts
+
+forge update lib/solmate
+forge remove solmate
+
+forge remappings
 ```
+
+## 安装soldeer [soldeer文档](https://soldeer.xyz/)
+```
+forge soldeer init
+```
+
 ## 部署合约
 ```bash
 forge create --rpc-url http://localhost:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 src/Counter.sol:Counter --broadcast
+```
+```bash
+forge clone --etherscan-api-key XEUXBFXMB5G8KWRAKKX44MGJMMNSVTM6AT 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2 WETH9
 ```
