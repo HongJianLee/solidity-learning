@@ -12,19 +12,29 @@ contract CounterTest is Test {
     }
 
     function test_increment() public {
-        assert(counter.count() == 0);
         counter.increment();
         assert(counter.count() == 1);
     }
 
     function test_setNumber() public {
-        assert(counter.count() == 0);
         counter.setNumber(10);
         assert(counter.count() == 10);
     }
 
     function test_subtract() public {
-        vm.expectRevert("Expection");
         counter.subtract();
+        assert(counter.count() == 9);
+    }
+
+    /* beforeTestSetup：可选函数，用于配置在测试之前执行的一组交易。
+        bytes4 testSelector 是应用于测试的选择器
+        bytes[] memory beforeTestCalldata 是在测试执行之前应用的任意 calldata 数组*/
+    function beforeTestSetup(
+        bytes4 testSelector
+    ) public returns (bytes[] memory beforeTestCalldata) {
+        if (testSelector == this.test_subtract.selector) {
+            beforeTestCalldata = new bytes[](1);
+            beforeTestCalldata[0] = abi.encodePacked(this.test_setNumber.selector);
+        }
     }
 }

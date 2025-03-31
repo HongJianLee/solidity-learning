@@ -17,7 +17,6 @@ contract Counter {
     }
 
     function subtract() external returns (uint256){
-        revert("Expection");
         return number--;
     }
 }
