@@ -15,6 +15,11 @@ contract CounterTest is Test {
         counter.increment();
         assert(counter.count() == 1);
     }
+    function test_Revert_IncrementAsNotOwner() public {
+        vm.expectRevert(Counter.Unauthorized.selector);
+        vm.prank(address(0));
+        counter.increment();
+    }
 
     function test_setNumber() public {
         counter.setNumber(10);
@@ -31,7 +36,7 @@ contract CounterTest is Test {
         bytes[] memory beforeTestCalldata 是在测试执行之前应用的任意 calldata 数组*/
     function beforeTestSetup(
         bytes4 testSelector
-    ) public returns (bytes[] memory beforeTestCalldata) {
+    ) public pure returns (bytes[] memory beforeTestCalldata) {
         if (testSelector == this.test_subtract.selector) {
             beforeTestCalldata = new bytes[](1);
             beforeTestCalldata[0] = abi.encodePacked(this.test_setNumber.selector);
