@@ -42,4 +42,23 @@ contract CounterTest is Test {
             beforeTestCalldata[0] = abi.encodePacked(this.test_setNumber.selector);
         }
     }
+
+    function test_ExpectEmit() public {
+        // Check that topic 1, topic 2, and data are the same as the following emitted event.
+        // Checking topic 3 here doesn't matter, because `Transfer` only has 2 indexed topics.
+        vm.expectEmit(true, true, false, true);
+        // The event we expect
+        emit Counter.Transfer(address(this), address(1337), 1337);
+        // The event we get
+        counter.t();
+    }
+
+    function test_ExpectEmit_DoNotCheckData() public {
+        // Check topic 1 and topic 2, but do not check data
+        vm.expectEmit(true, true, false, false);
+        // The event we expect
+        emit Counter.Transfer(address(this), address(1337), 1338);
+        // The event we get
+        counter.t();
+    }
 }
