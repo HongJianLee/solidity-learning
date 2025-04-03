@@ -1,4 +1,4 @@
-## 本地安装ganache
+## 本地安装 Ganache
 ### 下载地址
 ```
 https://archive.trufflesuite.com/ganache/
@@ -179,8 +179,82 @@ forge soldeer init
 
 ## 部署合约
 ```bash
-forge create --rpc-url http://localhost:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 src/Counter.sol:Counter --broadcast
+  forge create --rpc-url http://localhost:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 src/Counter.sol:Counter --broadcast
 ```
+### 使用 --constructor-args 标志将参数传递给构造函数
+
+```
+--constructor-args "ForgeUSD" "FUSD" 18 1000000000000000000000
+```
+### 克隆链上已验证的合约
 ```bash
-forge clone --etherscan-api-key XEUXBFXMB5G8KWRAKKX44MGJMMNSVTM6AT 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2 WETH9
+  forge clone --etherscan-api-key XEUXBFXMB5G8KWRAKKX44MGJMMNSVTM6AT 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2 WETH9
 ```
+### Gas 报告  foundry.toml
+#### 为特定合约生成报告：
+```
+gas_reports = ["MyContract", "MyContractFactory"]
+```
+#### 为所有合约生成报告：
+```
+gas_reports = ["*"]
+```
+
+#### 要生成 Gas 报告，请运行 
+```
+forge test --gas-report
+// 针对单个测试用例
+forge test --match-test testFuzz_withdraw --gas-report
+```
+
+#### 忽略合约
+```
+gas_reports_ignore = ["Example"]
+```
+
+#### gas 函数快照
+```
+forge snapshot
+// 指定一个文件输出
+forge snapshot --snap <FILE_NAME>
+// --asc gas升序 --desc gas降序
+// --min <VALUE> gas最小 --max <VALUE> gas最大
+```
+
+#### 调试器 Debugger
+```
+    forge test --debug $FUNC
+```
+
+### Cast 概述
+
+(Cast 是 Foundry 用于执行以太坊 RPC 调用的命令行工具。 你可以进行智能合约调用、发送交易或检索任何类型的链数据——所有这些都来自你的命令行！)
+#### 使用 cast 来检索 DAI 代币的总供应量
+```
+cast call 0x6b175474e89094c44da98b954eedeac495271d0f "totalSupply()(uint256)" --rpc-url https://eth-mainnet.alchemyapi.io/v2/Lc7oIGYeL_QvInzI0Wiu_pOZZDEKBrdf
+```
+
+#### 解码 calldata
+```
+cast 4byte-decode 0x1F1F897F676d00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003e7
+```
+
+### Anvil 概述
+Anvil 是 Foundry 附带的本地测试网节点。 你可以使用它从前端测试你的合约或通过 RPC 进行交互。
+```
+#  Number of dev accounts to generate and configure. [default: 10]
+anvil -a, --accounts <ACCOUNTS>
+
+# The EVM hardfork to use. [default: latest]
+anvil --hardfork <HARDFORK>
+
+# Port number to listen on. [default: 8545]
+anvil  -p, --port <PORT>
+```
+
+### Chisel 概述
+Chisel 是随 Foundry 提供的高级 Solidity REPL。它可用于在本地或分叉网络上快速测试 Solidity 片段。
+如何使用 Chisel
+要使用 Chisel，只需键入 chisel。然后开始编写 Solidity 代码！Chisel 会对每次输入提供详细反馈。
+
+Chisel 可在 Foundry 项目内外使用。如果二进制文件在 Foundry 项目根目录下执行，Chisel 将继承项目的配置选项。

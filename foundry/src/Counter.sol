@@ -2,7 +2,6 @@
 pragma solidity ^0.8.24;
 
 contract Counter {
-
     event Transfer(address indexed from, address indexed to, uint256 amount);
 
     function t() public {
@@ -15,6 +14,13 @@ contract Counter {
     address public immutable owner;
 
     uint256 public number;
+
+    receive() external payable {
+    }
+
+    function withdraw() external {
+        payable(msg.sender).transfer(address(this).balance);
+    }
 
     constructor() {
         owner = msg.sender;
@@ -35,7 +41,7 @@ contract Counter {
         return number;
     }
 
-    function subtract() external returns (uint256){
+    function subtract() external returns (uint256) {
         return number--;
     }
 }
