@@ -1,13 +1,26 @@
-# Sample Hardhat Project
+# Hardhat Project
+## 创建新的 Hardhat 项目
+```
+mkdir hardhat-tutorial 
+cd hardhat-tutorial 
+npm init
+npm install --save-dev hardhat 
+```
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+## 编写和编译合约
+```
+npx hardhat compile
+```
 
-Try running some of the following tasks:
-
-```shell
-npx hardhat help
+## 测试合约
+```
 npx hardhat test
-REPORT_GAS=true npx hardhat test
+```
+
+##  用 Hardhat Network 调试
+```
 npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.js
+```
+```
+import "hardhat/console.sol";
 ```
